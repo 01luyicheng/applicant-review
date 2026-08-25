@@ -13,7 +13,7 @@ jobs:
   dco:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # pin: v4.1.1 -> SHA optional; keep v4 for maintainability
+      - uses: actions/checkout@v7 # pin: v4.1.1 -> SHA optional; keep v4 for maintainability
         with:
           fetch-depth: 0
       - name: Check DCO Signed-off-by (has-signoff)
