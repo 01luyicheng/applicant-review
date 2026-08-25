@@ -66,7 +66,7 @@ jobs:
       - name: "Run coverage with thresholds"
         run: npm run coverage
       # Phase0 阈值: lines 50 / branches 40 / functions 40 / statements 50 阻塞；70 告警（见 vite.config.ts）
-      - uses: actions/upload-artifact@v4.4.3 # pinned: v4.4.3 (SHA: 40aad2274c5fccd9c68ff9cc2d39fdba93fdca825)
+      - uses: actions/upload-artifact@v7.0.1 # pinned: v4.4.3 (SHA: 40aad2274c5fccd9c68ff9cc2d39fdba93fdca825)
         if: always()
         with:
           name: coverage-report
@@ -86,7 +86,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-artifact@v4.4.3 # pinned: v4.4.3
+      - uses: actions/upload-artifact@v7.0.1 # pinned: v4.4.3
         with:
           name: dist
           path: dist
