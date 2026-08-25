@@ -10,7 +10,7 @@
 
 The following are trademarks / trade dress of the project maintainers (or their respective owners) and are **not** licensed under MIT:
 
-- Project names such as `Applicant Review` and any prior working names (e.g., `YOUR_ORG` where used as a brand).
+- Project names such as `Applicant Review` and any prior working names (e.g., `01luyicheng` where used as a brand).
 - Logos, icons, wordmarks, color schemes, and marketing copy that identify the project.
 - Domain placeholders like `applicant-review.dev` / `demo.applicant-review.dev` where operated by the maintainers.
 
@@ -19,7 +19,7 @@ Third-party marks (e.g., `Feishu`, `Tencent Docs`, `Notion`, `Vercel`, `Netlify`
 ## What You Can Do (Without Permission)
 
 - Fork the repository and use the **code** under MIT terms.
-- Accurately describe origin: e.g., _"Based on Applicant Review (https://github.com/YOUR_ORG/applicant-review), MIT licensed"_.
+- Accurately describe origin: e.g., _"Based on Applicant Review (https://github.com/01luyicheng/applicant-review), MIT licensed"_.
 - Use the name **nominatively** to state compatibility or origin (truthful, non-misleading, no logo).
 
 ## What Requires Permission / Rebranding
@@ -33,12 +33,12 @@ You **must rebrand** (rename, replace logo, change domains) before any of the fo
 **How to rebrand (one command):**
 
 ```bash
-./scripts/rebrand.sh YOUR_ORG your-product-name
+./scripts/rebrand.sh 01luyicheng your-product-name
 # or interactively:
 ./scripts/rebrand.sh
 ```
 
-This replaces `YOUR_ORG` / `YOUR_ORG` placeholders in `package.json` (`homepage` / `repository` / `bugs`), `README.md`, `CONTRIBUTING.md`, `.github/`, and docs. Review the `git diff` before committing.
+This replaces `01luyicheng` / `01luyicheng` placeholders in `package.json` (`homepage` / `repository` / `bugs`), `README.md`, `CONTRIBUTING.md`, `.github/`, and docs. Review the `git diff` before committing.
 
 Manual checklist if you don't use the script:
 

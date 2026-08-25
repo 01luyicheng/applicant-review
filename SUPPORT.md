@@ -8,12 +8,12 @@ Applicant Review is currently **100% free** — all features in this repository 
 
 | Channel | Purpose | Response |
 | ------- | ------- | -------- |
-| **GitHub Issues** — [YOUR_ORG/applicant-review/issues](https://github.com/YOUR_ORG/applicant-review/issues) | Bugs, feature requests, config examples | Best-effort, triaged by maintainers |
+| **GitHub Issues** — [01luyicheng/applicant-review/issues](https://github.com/01luyicheng/applicant-review/issues) | Bugs, feature requests, config examples | Best-effort, triaged by maintainers |
 | **GitHub Discussions** (if enabled) | Q&A, usage help | Community + maintainers |
 | **Security** — `security@applicant-review.dev` | Private vulnerability reports | Ack in 2 business days (see `SECURITY.md`) |
 | **Email** — `security@applicant-review.dev` / `support@applicant-review.dev` (placeholder) | CoC, governance, enterprise inquiry | Best-effort |
 
-> **Placeholder org:** `YOUR_ORG` is a neutral placeholder. Replace it via `scripts/rebrand.sh` or manually edit `package.json` / `README.md` / `.github/` URLs. See `TRADEMARK.md`.
+> **Placeholder org:** `01luyicheng` is a neutral placeholder. Replace it via `scripts/rebrand.sh` or manually edit `package.json` / `README.md` / `.github/` URLs. See `TRADEMARK.md`.
 
 ## SLA (Best-Effort, No Guarantee)
 
@@ -54,7 +54,7 @@ If you need these, please open an issue describing the use case — we track dem
 
 ## Before You Ask
 
-1. Search existing [Issues](https://github.com/YOUR_ORG/applicant-review/issues) and `README.md#使用指南`.
+1. Search existing [Issues](https://github.com/01luyicheng/applicant-review/issues) and `README.md#使用指南`.
 2. Reproduce on `main` with `npm run dev` and include: OS / browser / Node version / `config.json` (redacted) / sample CSV header.
 3. For config questions, attach a minimal `ViewConfig` snippet and the first row of your export (desensitized).
 

@@ -1,7 +1,7 @@
 # Applicant Review
 
-<!-- badges: 以下徽章中 YOUR_ORG 为 GitHub 组织/用户名占位，rebrand 后替换 — 执行 ./scripts/rebrand.sh YOUR_ORG 一键替换为实际值；shields.io 为占位徽章，替换后自动指向真实仓库 -->
-[![CI](https://img.shields.io/github/actions/workflow/status/YOUR_ORG/applicant-review/ci.yml?branch=main&label=CI)](https://github.com/YOUR_ORG/applicant-review/actions/workflows/ci.yml) [![Coverage](https://img.shields.io/badge/coverage-76.88%25-brightgreen)](./coverage) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![Version](https://img.shields.io/badge/version-1.0.0-blue)](./CHANGELOG.md)
+<!-- badges: 以下徽章中 01luyicheng 为 GitHub 组织/用户名占位，rebrand 后替换 — 执行 ./scripts/rebrand.sh 01luyicheng 一键替换为实际值；shields.io 为占位徽章，替换后自动指向真实仓库 -->
+[![CI](https://img.shields.io/github/actions/workflow/status/01luyicheng/applicant-review/ci.yml?branch=main&label=CI)](https://github.com/01luyicheng/applicant-review/actions/workflows/ci.yml) [![Coverage](https://img.shields.io/badge/coverage-76.88%25-brightgreen)](./coverage) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![Version](https://img.shields.io/badge/version-1.0.0-blue)](./CHANGELOG.md)
 
 通用的活动报名审核工具。拖拽 Excel/CSV 即用，零配置上手，通过配置文件适配任意表单字段。
 
@@ -21,17 +21,17 @@
 
 ### 本地开发
 ```bash
-# TODO: 将 YOUR_ORG 替换为你的 GitHub 组织/用户名，执行 ./scripts/rebrand.sh YOUR_ORG 一键替换（历史占位 YOUR_ORG 已去硬编码）
-git clone https://github.com/YOUR_ORG/applicant-review
+# TODO: 将 01luyicheng 替换为你的 GitHub 组织/用户名，执行 ./scripts/rebrand.sh 01luyicheng 一键替换（历史占位 01luyicheng 已去硬编码）
+git clone https://github.com/01luyicheng/applicant-review
 cd applicant-review
 npm install
 npm run dev
 ```
 
 ### 一键部署
-<!-- TODO: 将 YOUR_ORG 替换为实际仓库地址，执行 ./scripts/rebrand.sh YOUR_ORG -->
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_ORG/applicant-review)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/YOUR_ORG/applicant-review)
+<!-- TODO: 将 01luyicheng 替换为实际仓库地址，执行 ./scripts/rebrand.sh 01luyicheng -->
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/01luyicheng/applicant-review)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/01luyicheng/applicant-review)
 
 ## 📖 使用指南
 
@@ -258,7 +258,7 @@ npm run coverage    # 覆盖率门禁（当前 51.49%+，Phase1 告警 70%）
 
 ## 🔒 隐私与数据说明
 
-- **示例数据已脱敏**：`public/example.csv` 仅含合成假数据（手机号 `138****` / 邮箱 `example@test.com` / 微信 `wxid_fake`），无真实 PII；根级示例 `YOUR_ORG` 相关 `*.csv`（如已存在）亦为同份假数据（10 行，历史品牌占位，现已去品牌化，见 `public/example.csv`）。`dist` 已剔除示例（`npm run build` 后自动 `rm -f dist/example.csv`，`publicDir` 仍为 `public` 以便 `npm run dev` 调试）。
+- **示例数据已脱敏**：`public/example.csv` 仅含合成假数据（手机号 `138****` / 邮箱 `example@test.com` / 微信 `wxid_fake`），无真实 PII；根级示例 `01luyicheng` 相关 `*.csv`（如已存在）亦为同份假数据（10 行，历史品牌占位，现已去品牌化，见 `public/example.csv`）。`dist` 已剔除示例（`npm run build` 后自动 `rm -f dist/example.csv`，`publicDir` 仍为 `public` 以便 `npm run dev` 调试）。
 - **本地处理**：上传的报名表仅在浏览器 `sessionStorage` 处理（默认掩码），关闭标签页自动清除，不会上传服务器。
 - **Git 历史**：当前仓库为非 `git` 初始化状态（`find . -name .git` 无结果），无历史泄露风险；若你 `fork` 后 `git init` 并曾提交过真实 CSV，请执行 `git filter-repo --invert-paths --path 'public/*.csv' --path '*.csv' --force` 或 `BFG --delete-files '*.csv'` 并 `git push --force`，并建议全局安装 `gitleaks` 做提交前扫描。
 
@@ -268,15 +268,15 @@ npm run coverage    # 覆盖率门禁（当前 51.49%+，Phase1 告警 70%）
 
 - **代码**：MIT 授权，见 [LICENSE](LICENSE) 与 [NOTICE](NOTICE)（含第三方依赖声明）。
 - **商标/品牌不授权**：项目名称、Logo、域名等商标不受 MIT 覆盖，禁止暗示官方背书；分发或商用前请执行 `./scripts/rebrand.sh` 完成重命名，详见 [TRADEMARK.md](TRADEMARK.md)。
-- **占位说明**：`package.json` / `README` 中 `YOUR_ORG` 为历史品牌占位，发布前执行 `scripts/rebrand.sh YOUR_ORG` 替换，不影响 MIT 许可效力。
+- **占位说明**：`package.json` / `README` 中 `01luyicheng` 为历史品牌占位，发布前执行 `scripts/rebrand.sh 01luyicheng` 替换，不影响 MIT 许可效力。
 - **第三方**：依赖各自许可证（见 [NOTICE](NOTICE) 与 `package-lock.json` SBOM），其中 `xlsx` 为 Apache-2.0、`lucide-react` 为 ISC，其余多为 MIT。
 
 ## 📦 发布指引
 
 ```bash
-git remote add origin https://github.com/YOUR_ORG/applicant-review.git  # 首次发布：替换 YOUR_ORG 后执行，rebrand 脚本会同步替换 README/CHANGELOG/package.json 中的占位
+git remote add origin https://github.com/01luyicheng/applicant-review.git  # 首次发布：替换 01luyicheng 后执行，rebrand 脚本会同步替换 README/CHANGELOG/package.json 中的占位
 git push -u origin main && git push --tags  # 推送代码与 v1.0.0 标签（触发 release.yml 生成 dist.zip）
-docker pull ghcr.io/YOUR_ORG/applicant-review:latest  # 拉取 CI 构建的镜像（需先在 main 分支 push 触发 docker job，见 .github/workflows/ci.yml:docker）
+docker pull ghcr.io/01luyicheng/applicant-review:latest  # 拉取 CI 构建的镜像（需先在 main 分支 push 触发 docker job，见 .github/workflows/ci.yml:docker）
 ```
 
 ## 🙏 致谢

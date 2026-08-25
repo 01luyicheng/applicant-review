@@ -47,7 +47,7 @@ Open an Issue labeled `pricing`, or email `security@applicant-review.dev` (subje
 
 ## Contact
 
-- Issues: https://github.com/YOUR_ORG/applicant-review/issues
+- Issues: https://github.com/01luyicheng/applicant-review/issues
 - Email (placeholder): `security@applicant-review.dev`
 - Future Cloud/Enterprise contact will be published here when available.
 

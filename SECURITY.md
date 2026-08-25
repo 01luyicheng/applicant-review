@@ -16,7 +16,7 @@ We support the latest `1.x` release line. Security fixes are released as patch v
 Please report privately to:
 
 - **Email:** `security@applicant-review.dev` (placeholder — maintainers will triage within 48h)
-- **Alternative:** Open a [GitHub Security Advisory draft](https://github.com/YOUR_ORG/applicant-review/security/advisories/new) (Private vulnerability reporting) if enabled, or contact any maintainer listed in `GOVERNANCE.md`.
+- **Alternative:** Open a [GitHub Security Advisory draft](https://github.com/01luyicheng/applicant-review/security/advisories/new) (Private vulnerability reporting) if enabled, or contact any maintainer listed in `GOVERNANCE.md`.
 
 ### What to include
 

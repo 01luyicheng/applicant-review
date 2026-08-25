@@ -19,7 +19,7 @@ First public release — **Applicant Review** as a generic, local-first activity
 - **Security:** CSV injection guard (`sanitizeCsvCell`), same-origin guard for remote config, 5s fetch timeout, `npm audit` guidance, honest `xlsx@0.18.5` disclosure in `README.md` + `package.json#_comment_xlsx`.
 - **Docs:** `README.md`, `CONTRIBUTING.md`, `LICENSE` (MIT), `SECURITY.md`, `CODE_OF_CONDUCT.md`, `SUPPORT.md`, `TRADEMARK.md`, `GOVERNANCE.md`, `PRICING.md`, `NOTICE`, `CHANGELOG.md`, `PLAN_COMMERCIALIZATION.md`.
 - **CI/CD:** `ci.yml` (typecheck/lint/test/build/docker/preview), `release.yml` (tag `v*` → `dist.zip` + GitHub Release), Docker + Nginx, Vercel/Netlify deploy buttons.
-- **Tooling:** `scripts/rebrand.sh` for one-click `YOUR_ORG` → `YOUR_ORG` replacement; DCO via `Signed-off-by` + `dco.yml` workflow.
+- **Tooling:** `scripts/rebrand.sh` for one-click `01luyicheng` → `01luyicheng` replacement; DCO via `Signed-off-by` + `dco.yml` workflow.
 - **Tests:** `vitest` suite — 14 files, 128 passing + 3 todo (131 total), coverage **Lines 76.88% / Statements 72.76% / Branches 63.11% / Functions 70.71%** (`v8` provider, thresholds `70/60/70/70` 阻塞已达成，见 `vite.config.ts:thresholds`).
 - **App & PWA:** `src/App.tsx` 208 行（主应用含 header 画廊下拉 + i18n 切换）；PWA 已落地 — `vite-plugin-pwa@^1.3.0` + `VitePWA({ registerType:'autoUpdate' })` 已集成于 `vite.config.ts:plugins`，`manifest: { name:'Applicant Review' }` 可离线安装（此前为计划中）。
 
@@ -29,7 +29,7 @@ First public release — **Applicant Review** as a generic, local-first activity
 
 ### Changed
 
-- Brand-neutral placeholders (`YOUR_ORG/applicant-review`) with TODOs for forking.
+- Brand-neutral placeholders (`01luyicheng/applicant-review`) with TODOs for forking.
 
 ### Fixed
 
@@ -60,8 +60,8 @@ First public release — **Applicant Review** as a generic, local-first activity
 ### Security
 - ...
 
-[Unreleased]: https://github.com/YOUR_ORG/applicant-review/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/YOUR_ORG/applicant-review/releases/tag/v1.0.0
+[Unreleased]: https://github.com/01luyicheng/applicant-review/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/01luyicheng/applicant-review/releases/tag/v1.0.0
 ```
 
 ### How to write entries
@@ -77,5 +77,5 @@ First public release — **Applicant Review** as a generic, local-first activity
 3. Tag `v x.y.z` and push: `git tag v1.1.0 && git push origin v1.1.0` — triggers `.github/workflows/release.yml`.
 4. Verify GitHub Release attaches `dist.zip` and links back here.
 
-[Unreleased]: https://github.com/YOUR_ORG/applicant-review/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/YOUR_ORG/applicant-review/releases/tag/v1.0.0
+[Unreleased]: https://github.com/01luyicheng/applicant-review/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/01luyicheng/applicant-review/releases/tag/v1.0.0

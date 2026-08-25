@@ -11,8 +11,8 @@
 
 ```bash
 # 克隆仓库
-# TODO: 将 YOUR_ORG 替换为实际 GitHub 组织/用户名，执行 ./scripts/rebrand.sh YOUR_ORG 一键替换（历史占位 YOUR_ORG 已去硬编码）
-git clone https://github.com/YOUR_ORG/applicant-review
+# TODO: 将 01luyicheng 替换为实际 GitHub 组织/用户名，执行 ./scripts/rebrand.sh 01luyicheng 一键替换（历史占位 01luyicheng 已去硬编码）
+git clone https://github.com/01luyicheng/applicant-review
 cd applicant-review
 
 # 安装依赖（本项目使用 npm + package-lock.json）

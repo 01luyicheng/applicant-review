@@ -12,7 +12,7 @@
 | ---- | --- | ---------------- | ------------- |
 | **User / Contributor** | Anyone | Opens issues/PRs, follows `CONTRIBUTING.md` + `CODE_OF_CONDUCT.md`, signs off with `Signed-off-by` (DCO) | Just contribute |
 | **Reviewer** | Active contributors | Reviews PRs, triages issues, improves docs/tests | Invited after sustained quality contributions |
-| **Maintainer** | Owners of `YOUR_ORG/applicant-review` | Merge rights on `main`, cut releases, enforce `SECURITY.md` / `CODE_OF_CONDUCT.md`, own Roadmap | Nominated by existing maintainers, lazy consensus |
+| **Maintainer** | Owners of `01luyicheng/applicant-review` | Merge rights on `main`, cut releases, enforce `SECURITY.md` / `CODE_OF_CONDUCT.md`, own Roadmap | Nominated by existing maintainers, lazy consensus |
 | **PM (rotating)** | One maintainer | Drives Milestones, updates `PLAN_REVIEW_LOG.md`, breaks ties | Rotated per Phase |
 
 Current maintainers are the GitHub org owners. As the community grows, this file will list them explicitly.
@@ -50,6 +50,6 @@ PR against `GOVERNANCE.md` with `governance` label, 7-day review, 2 maintainer a
 
 ## Contact
 
-- Issues / Discussions: https://github.com/YOUR_ORG/applicant-review
+- Issues / Discussions: https://github.com/01luyicheng/applicant-review
 - Security / CoC: `security@applicant-review.dev`
 - Governance questions: open an Issue labeled `governance`

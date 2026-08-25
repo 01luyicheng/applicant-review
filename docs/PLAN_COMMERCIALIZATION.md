@@ -5,7 +5,7 @@
 
 ## 1. 背景与裁决
 
-- **矛盾**：`package.json:4` 称通用，`src/types.ts:29` `public/config.json:1` 默认却是 YOUR_ORG 黑客松定制。
+- **矛盾**：`package.json:4` 称通用，`src/types.ts:29` `public/config.json:1` 默认却是 01luyicheng 黑客松定制。
 - **会审裁决**：5 轨一致「有条件通过」——方向正确但工期乐观、口径不自洽、清单不全。v1.0 已吸收全部阻塞项。
 - **P0 定义**：不做即**不可宣称“免费商用”**（法务/安全拦截）。
 
@@ -42,7 +42,7 @@
 
 ### 3.4 合规（D 轨吸收）
 - 新增 8 份：`SECURITY.md`（security@, 90d, 支持版本）、`CODE_OF_CONDUCT.md`、`SUPPORT.md`、`TRADEMARK.md`、`GOVERNANCE.md`、`CHANGELOG.md`、`PRICING.md`、`NOTICE` + `DCO`（`dco.yml + Signed-off-by` 替代 CLA）。
-- 品牌：`scripts/rebrand.sh` 一键替换 `YOUR_ORG→<<ORG>>`，`package.json:29` 等去硬编码。
+- 品牌：`scripts/rebrand.sh` 一键替换 `01luyicheng→<<ORG>>`，`package.json:29` 等去硬编码。
 - 供应链加固：`dependabot.yml` + `codeql.yml` + `scorecard.yml` + SBOM/provenance。
 
 ### 3.5 工程（E 轨吸收）

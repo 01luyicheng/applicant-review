@@ -43,7 +43,7 @@ generated with:
 Branding & Trademarks
 ---------------------
 
-Project names, logos, and domains (e.g., Applicant Review, YOUR_ORG where
+Project names, logos, and domains (e.g., Applicant Review, 01luyicheng where
 used as a brand, applicant-review.dev) are trademarks and NOT covered by the
 MIT license. See TRADEMARK.md. Rebrand with scripts/rebrand.sh before
 commercial redistribution.
@@ -57,4 +57,4 @@ Contact
 -------
 
 Security / trademark / general: security@applicant-review.dev (placeholder)
-Repository: https://github.com/YOUR_ORG/applicant-review
+Repository: https://github.com/01luyicheng/applicant-review

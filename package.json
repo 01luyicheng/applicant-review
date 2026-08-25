@@ -33,16 +33,16 @@
     "node": ">=20",
     "npm": ">=9"
   },
-  "homepage": "https://github.com/YOUR_ORG/applicant-review#readme",
+  "homepage": "https://github.com/01luyicheng/applicant-review#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_ORG/applicant-review.git"
+    "url": "https://github.com/01luyicheng/applicant-review.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_ORG/applicant-review/issues"
+    "url": "https://github.com/01luyicheng/applicant-review/issues"
   },
-  "_comment_rebrand": "TODO: 将 YOUR_ORG 替换为你的 GitHub 组织/用户名，执行 ./scripts/rebrand.sh YOUR_ORG 一键替换；YOUR_ORG 为历史品牌占位，已去硬编码；发布前执行 scripts/rebrand.sh 替换，不影响 MIT 许可效力（MIT 仅覆盖代码版权，不含商标，见 TRADEMARK.md）",
-  "_comment_license": "SPDX-License-Identifier: MIT; license 字段与 LICENSE/NOTICE/README 保持一致，商业友好；YOUR_ORG 占位不影响许可效力",
+  "_comment_rebrand": "TODO: 将 01luyicheng 替换为你的 GitHub 组织/用户名，执行 ./scripts/rebrand.sh 01luyicheng 一键替换；01luyicheng 为历史品牌占位，已去硬编码；发布前执行 scripts/rebrand.sh 替换，不影响 MIT 许可效力（MIT 仅覆盖代码版权，不含商标，见 TRADEMARK.md）",
+  "_comment_license": "SPDX-License-Identifier: MIT; license 字段与 LICENSE/NOTICE/README 保持一致，商业友好；01luyicheng 占位不影响许可效力",
   "dependencies": {
     "exceljs": "^4.4.0",
     "i18next": "^23.15.1",
