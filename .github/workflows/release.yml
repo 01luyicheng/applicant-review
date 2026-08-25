@@ -23,7 +23,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: zip -r dist.zip dist
-      # pin: softprops/action-gh-release@v2.2.1 (SHA: a06c22475337ba0e983bab5e378b43d99430d1b8)
+      # pin: softprops/action-gh-release@v3.0.2 (SHA: a06c22475337ba0e983bab5e378b43d99430d1b8)
       # v1 → v2 升级：已启用 generate_release_notes: true（自动生成 Release Notes，见 softprops@v2.2.1），修复 Node16 deprecation
       # ghcr.io 真推已启用（取消注释即真推 - 已取消注释为可执行，需 jobs.permissions: packages:write + contents:write）：
       # pin: docker/setup-buildx-action@v3.7.0 (SHA: 8a8aedac95d09d24d50b34ea67c6b7d1a360d80a4)
@@ -48,7 +48,7 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
           provenance: true
           sbom: true
-      - uses: softprops/action-gh-release@v2.2.1
+      - uses: softprops/action-gh-release@v3.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
