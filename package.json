@@ -55,7 +55,7 @@
   "_comment_i18n": "i18n 已接入主链路：src/i18n.ts 基于 i18next+react-i18next（fallback zh, localStorage 持久），src/locales/{zh,en}.json 全量覆盖；FilterBar/FileUploader 已示范 t() 改造，App header 提供 中/EN 切换",
   "_comment_zod": "zod 双轨已落地: 已执行 npm i zod@^3.23.8 -D（实际 ^3.25.76），src/config.ts 已接入 configSchema(z.object) 对 title/idField/nameField/statusField/listFields/statusValues 等核心字段校验，validateConfig 先走 zod safeParse 再回退手写 getLegacyValidationErrors，手写 150 行保留作回退与细粒度合并，去重后返回以免破测试；若网络失败则回退为 devDeps 占位 + 注释（当前已成功安装）",
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
