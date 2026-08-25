@@ -28,8 +28,8 @@ jobs:
       # ghcr.io 真推已启用（取消注释即真推 - 已取消注释为可执行，需 jobs.permissions: packages:write + contents:write）：
       # pin: docker/setup-buildx-action@v3.7.0 (SHA: 8a8aedac95d09d24d50b34ea67c6b7d1a360d80a4)
       - uses: docker/setup-buildx-action@v3.7.0
-      # pin: docker/login-action@v3.3.0 (SHA: 9780b0c442235a2cc11f50b67e02d02376801499)
-      - uses: docker/login-action@v3.3.0
+      # pin: docker/login-action@v4.6.0 (SHA: 9780b0c442235a2cc11f50b67e02d02376801499)
+      - uses: docker/login-action@v4.6.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
