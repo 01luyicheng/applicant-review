@@ -17,9 +17,9 @@ jobs:
     permissions:
       contents: read
     steps:
-      # pin: actions/checkout@v4.1.7 (SHA: 11bd71901bbe5b1630ceea73d27597364c9af683)
+      # pin: actions/checkout@v7 (SHA: 11bd71901bbe5b1630ceea73d27597364c9af683)
       # 建议 hardened 环境 pin 到 SHA: uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v7
       # pin: actions/setup-node@v4.0.3 (SHA: 131f3d19ea48ca5a5c0b71f15d4160065c94ede3)
       - uses: actions/setup-node@v4.0.3
         with:
@@ -34,7 +34,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
+      - uses: actions/checkout@v7 # pinned: v4.1.7
       - uses: actions/setup-node@v4.0.3 # pinned: v4.0.3
         with:
           node-version: '20'
@@ -57,7 +57,7 @@ jobs:
       contents: read
     needs: [lint-and-typecheck]
     steps:
-      - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
+      - uses: actions/checkout@v7 # pinned: v4.1.7
       - uses: actions/setup-node@v4.0.3 # pinned: v4.0.3
         with:
           node-version: '20'
@@ -79,7 +79,7 @@ jobs:
       contents: read
     needs: [lint-and-typecheck, test]
     steps:
-      - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
+      - uses: actions/checkout@v7 # pinned: v4.1.7
       - uses: actions/setup-node@v4.0.3 # pinned: v4.0.3
         with:
           node-version: '20'
@@ -100,7 +100,7 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
-      - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
+      - uses: actions/checkout@v7 # pinned: v4.1.7
       # pin: docker/setup-buildx-action@v3.7.0 (SHA: 8a8aedac95d09d24d50b34ea67c6b7d1a360d80a4)
       - uses: docker/setup-buildx-action@v3.7.0
       # pin: docker/login-action@v3.3.0 (SHA: 9780b0c442235a2cc11f50b67e02d02376801499)
