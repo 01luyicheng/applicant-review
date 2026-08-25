@@ -38,8 +38,8 @@ jobs:
       - uses: github/codeql-action/upload-sarif@v3.28.0
         with:
           sarif_file: results.sarif
-      # pin: actions/upload-artifact@v4.4.3
-      - uses: actions/upload-artifact@v4.4.3
+      # pin: actions/upload-artifact@v7.0.1
+      - uses: actions/upload-artifact@v7.0.1
         with:
           name: SARIF file
           path: results.sarif
