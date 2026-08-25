@@ -27,14 +27,14 @@ jobs:
     steps:
       # pin: actions/checkout@v4.1.7
       - uses: actions/checkout@v4.1.7
-      # pin: github/codeql-action/init@v3.28.0
-      - uses: github/codeql-action/init@v3.28.0
+      # pin: github/codeql-action/init@v4.37.8
+      - uses: github/codeql-action/init@v4.37.8
         with:
           languages: ${{ matrix.language }}
           #  queries: security-extended,security-and-quality
-      # pin: github/codeql-action/autobuild@v3.28.0
-      - uses: github/codeql-action/autobuild@v3.28.0
-      # pin: github/codeql-action/analyze@v3.28.0
-      - uses: github/codeql-action/analyze@v3.28.0
+      # pin: github/codeql-action/autobuild@v4.37.8
+      - uses: github/codeql-action/autobuild@v4.37.8
+      # pin: github/codeql-action/analyze@v4.37.8
+      - uses: github/codeql-action/analyze@v4.37.8
         with:
           category: "/language:${{matrix.language}}"
