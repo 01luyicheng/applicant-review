@@ -1,0 +1,51 @@
+{
+  "title": "供应商准入评审",
+  "idField": "供应商编码",
+  "nameField": "供应商名称",
+  "listFields": [
+    { "key": "供应商名称", "label": "名称", "visibleInList": true },
+    { "key": "业务范围", "label": "业务范围", "visibleInList": true },
+    { "key": "注册资本", "label": "注册资本", "visibleInList": true },
+    { "key": "联系人", "label": "联系人", "visibleInList": true },
+    { "key": "风控结论", "label": "风控结论", "visibleInList": true },
+    { "key": "审核状态", "label": "状态", "visibleInList": true }
+  ],
+  "detailGroups": [
+    { "label": "基本信息", "fields": [
+      { "key": "供应商名称", "label": "供应商名称" },
+      { "key": "统一社会信用代码", "label": "统一社会信用代码" },
+      { "key": "注册资本", "label": "注册资本" },
+      { "key": "成立时间", "label": "成立时间" },
+      { "key": "注册地址", "label": "注册地址" },
+      { "key": "经营范围", "label": "经营范围" }
+    ]},
+    { "label": "资质证照", "fields": [
+      { "key": "营业执照", "label": "营业执照" },
+      { "key": "ISO认证", "label": "ISO认证" },
+      { "key": "行业资质", "label": "行业资质" },
+      { "key": "专利证书", "label": "专利证书" }
+    ]},
+    { "label": "商务信息", "fields": [
+      { "key": "联系人", "label": "联系人" },
+      { "key": "联系电话", "label": "电话" },
+      { "key": "联系邮箱", "label": "邮箱" },
+      { "key": "报价单", "label": "报价单" },
+      { "key": "付款条件", "label": "付款条件" }
+    ]},
+    { "label": "风控评审", "fields": [
+      { "key": "信用评级", "label": "信用评级" },
+      { "key": "诉讼记录", "label": "诉讼记录", "multiline": true },
+      { "key": "风控结论", "label": "风控结论", "multiline": true },
+      { "key": "审核状态", "label": "审核状态" },
+      { "key": "备注", "label": "备注" }
+    ]}
+  ],
+  "statusField": "审核状态",
+  "statusValues": [
+    { "value": "", "label": "待评审", "color": "gray" },
+    { "value": "通过", "label": "准入通过", "color": "green" },
+    { "value": "条件通过", "label": "条件通过", "color": "yellow" },
+    { "value": "不通过", "label": "不准入", "color": "red" },
+    { "value": "黑名单", "label": "列入黑名单", "color": "red" }
+  ]
+}

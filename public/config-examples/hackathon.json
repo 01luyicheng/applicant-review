@@ -1,0 +1,52 @@
+{
+  "title": "黑客松报名审核",
+  "idField": "编号",
+  "nameField": "真实姓名",
+  "listFields": [
+    { "key": "真实姓名", "label": "姓名", "visibleInList": true },
+    { "key": "微信昵称", "label": "昵称", "visibleInList": true },
+    { "key": "性别", "label": "性别", "visibleInList": true },
+    { "key": "年龄", "label": "年龄", "visibleInList": true },
+    { "key": "院校/单位", "label": "单位", "visibleInList": true },
+    { "key": "你当前更偏向于参加哪个赛道", "label": "赛道", "visibleInList": true },
+    { "key": "在本次黑客松，你当前最想探索的idea是什么", "label": "想法", "visibleInList": true }
+  ],
+  "detailGroups": [
+    { "label": "基本信息", "fields": [
+      { "key": "真实姓名", "label": "姓名" },
+      { "key": "微信昵称", "label": "昵称" },
+      { "key": "性别", "label": "性别" },
+      { "key": "年龄", "label": "年龄" },
+      { "key": "院校/单位", "label": "院校/单位" },
+      { "key": "年级专业/职位", "label": "年级/职位" }
+    ]},
+    { "label": "联系方式", "fields": [
+      { "key": "您的邮箱（后续通知将通过邮件发送）", "label": "邮箱" },
+      { "key": "手机号（用于通知）", "label": "手机" },
+      { "key": "微信号（用于通知）", "label": "微信" }
+    ]},
+    { "label": "报名详情", "fields": [
+      { "key": "你当前更偏向于参加哪个赛道", "label": "意向赛道" },
+      { "key": "您是通过什么渠道了解到本次黑客松的？", "label": "了解渠道" },
+      { "key": "提交时间", "label": "提交时间" }
+    ]},
+    { "label": "项目与想法", "fields": [
+      { "key": "您目前为止做过的最满意的一个项目是什么？", "label": "代表项目", "multiline": true },
+      { "key": "在本次黑客松，你当前最想探索的idea是什么", "label": "想探索的 Idea", "multiline": true },
+      { "key": "您擅长的技术栈和核心能力有哪些？", "label": "技术栈", "multiline": true },
+      { "key": "您希望队友具备的主要技能", "label": "期望队友", "multiline": true }
+    ]},
+    { "label": "审核记录", "fields": [
+      { "key": "审核是否通过", "label": "审核状态" },
+      { "key": "邮件发送状态", "label": "邮件状态" },
+      { "key": "备注", "label": "备注" }
+    ]}
+  ],
+  "statusField": "审核是否通过",
+  "statusValues": [
+    { "value": "", "label": "待审核", "color": "gray" },
+    { "value": "通过", "label": "通过", "color": "green" },
+    { "value": "拒绝", "label": "拒绝", "color": "red" },
+    { "value": "候补", "label": "候补", "color": "yellow" }
+  ]
+}

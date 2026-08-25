@@ -1,0 +1,49 @@
+{
+  "title": "奖学金评审",
+  "idField": "申请编号",
+  "nameField": "学生姓名",
+  "listFields": [
+    { "key": "学生姓名", "label": "姓名", "visibleInList": true },
+    { "key": "院系", "label": "院系", "visibleInList": true },
+    { "key": "专业班级", "label": "班级", "visibleInList": true },
+    { "key": "奖学金类别", "label": "奖学金类别", "visibleInList": true },
+    { "key": "综测成绩", "label": "综测", "visibleInList": true },
+    { "key": "审核状态", "label": "状态", "visibleInList": true }
+  ],
+  "detailGroups": [
+    { "label": "基本信息", "fields": [
+      { "key": "学生姓名", "label": "姓名" },
+      { "key": "学号", "label": "学号" },
+      { "key": "院系", "label": "院系" },
+      { "key": "专业班级", "label": "专业班级" },
+      { "key": "奖学金类别", "label": "奖学金类别" }
+    ]},
+    { "label": "成绩单", "fields": [
+      { "key": "必修课加权平均分", "label": "加权平均分" },
+      { "key": "综测成绩", "label": "综测成绩" },
+      { "key": "排名", "label": "年级排名" },
+      { "key": "英语成绩", "label": "英语成绩" }
+    ]},
+    { "label": "申请材料", "fields": [
+      { "key": "主要事迹", "label": "主要事迹", "multiline": true },
+      { "key": "获奖情况", "label": "获奖情况", "multiline": true },
+      { "key": "社会实践", "label": "社会实践", "multiline": true },
+      { "key": "志愿服务", "label": "志愿服务", "multiline": true }
+    ]},
+    { "label": "评审记录", "fields": [
+      { "key": "初审意见", "label": "初审意见", "multiline": true },
+      { "key": "复审意见", "label": "复审意见", "multiline": true },
+      { "key": "终审意见", "label": "终审意见", "multiline": true },
+      { "key": "审核状态", "label": "最终状态" },
+      { "key": "备注", "label": "备注" }
+    ]}
+  ],
+  "statusField": "审核状态",
+  "statusValues": [
+    { "value": "", "label": "待初审", "color": "gray" },
+    { "value": "初审通过", "label": "初审通过", "color": "blue" },
+    { "value": "复审通过", "label": "复审通过", "color": "blue" },
+    { "value": "终审通过", "label": "终审通过", "color": "green" },
+    { "value": "不通过", "label": "不通过", "color": "red" }
+  ]
+}

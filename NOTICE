@@ -1,0 +1,60 @@
+Applicant Review
+Copyright (c) 2026 Applicant Review Contributors
+
+This product includes software developed by Applicant Review Contributors
+licensed under the MIT License (see LICENSE).
+
+Third-Party Notices
+-------------------
+
+This project depends on open-source packages listed in package.json and
+package-lock.json. Each package is licensed under its own terms. Key
+dependencies include (non-exhaustive, see package-lock.json for full SBOM):
+
+- react, react-dom — MIT — https://github.com/facebook/react
+- lucide-react — ISC — https://github.com/lucide-icons/lucide
+- xlsx (SheetJS Community Edition) — Apache-2.0 — https://github.com/SheetJS/sheetjs
+  Note: xlsx@^0.18.5 has known advisories (Prototype Pollution / ReDoS); see
+  SECURITY.md and package.json#_comment_xlsx for mitigations and upgrade plan.
+- i18next — MIT — https://github.com/i18next/i18next
+- react-i18next — MIT — https://github.com/i18next/react-i18next
+- vite, @vitejs/plugin-react — MIT — https://github.com/vitejs/vite
+- typescript — Apache-2.0 — https://github.com/microsoft/TypeScript
+- tailwindcss, autoprefixer, postcss — MIT — https://github.com/tailwindlabs/tailwindcss
+- eslint, @typescript-eslint/* — MIT — https://github.com/eslint/eslint
+- vitest, @vitest/coverage-v8, jsdom — MIT — https://github.com/vitest-dev/vitest
+- @testing-library/* — MIT — https://github.com/testing-library
+- msw — MIT — https://github.com/mswjs/msw
+- jsdom, postcss, autoprefixer, tailwindcss — MIT — see respective package LICENSE
+  SBOM cross-check: all entries above verified against package-lock.json licenses field (2026-08-24).
+
+Build / CI tooling (not shipped in dist):
+
+- docker, nginx — respective upstream licenses, used only for deployment.
+- GitHub Actions — actions/checkout, actions/setup-node, docker/*, softprops/action-gh-release, etc. — MIT.
+
+Full license texts for each dependency are available in node_modules/<pkg>/LICENSE
+or via https://www.npmjs.com/package/<pkg>. A machine-readable SBOM can be
+generated with:
+
+  npm run build
+  npx @cyclonedx/cyclonedx-npm --output-file sbom.json
+
+Branding & Trademarks
+---------------------
+
+Project names, logos, and domains (e.g., Applicant Review, YOUR_ORG where
+used as a brand, applicant-review.dev) are trademarks and NOT covered by the
+MIT license. See TRADEMARK.md. Rebrand with scripts/rebrand.sh before
+commercial redistribution.
+
+No Warranty
+-----------
+
+See LICENSE (MIT) — provided "AS IS" without warranty.
+
+Contact
+-------
+
+Security / trademark / general: security@applicant-review.dev (placeholder)
+Repository: https://github.com/YOUR_ORG/applicant-review

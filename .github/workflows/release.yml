@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      # pin: actions/checkout@v4.1.7 (SHA: 11bd71901bbe5b1630ceea73d27597364c9af683)
+      - uses: actions/checkout@v4.1.7
+      # pin: actions/setup-node@v4.0.3 (SHA: 131f3d19ea48ca5a5c0b71f15d4160065c94ede3)
+      - uses: actions/setup-node@v4.0.3
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - run: npm run build
+      - run: zip -r dist.zip dist
+      # pin: softprops/action-gh-release@v2.2.1 (SHA: a06c22475337ba0e983bab5e378b43d99430d1b8)
+      # v1 → v2 升级：已启用 generate_release_notes: true（自动生成 Release Notes，见 softprops@v2.2.1），修复 Node16 deprecation
+      # ghcr.io 真推已启用（取消注释即真推 - 已取消注释为可执行，需 jobs.permissions: packages:write + contents:write）：
+      # pin: docker/setup-buildx-action@v3.7.0 (SHA: 8a8aedac95d09d24d50b34ea67c6b7d1a360d80a4)
+      - uses: docker/setup-buildx-action@v3.7.0
+      # pin: docker/login-action@v3.3.0 (SHA: 9780b0c442235a2cc11f50b67e02d02376801499)
+      - uses: docker/login-action@v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      # pin: docker/metadata-action@v5.5.1 (SHA: 8e5442c4ef9f78752691e2d8f8d19755c6f78e81c)
+      - uses: docker/metadata-action@v5.5.1
+        id: meta
+        with:
+          images: ghcr.io/${{ github.repository }}
+      # pin: docker/build-push-action@v5.3.0 (SHA: 91d18da8d69aab85d5bbb98b3715007aeb7c35411)
+      - uses: docker/build-push-action@v5.3.0
+        with:
+          context: .
+          file: docker/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+          provenance: true
+          sbom: true
+      - uses: softprops/action-gh-release@v2.2.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: dist.zip
+          generate_release_notes: true
+          body: |
+            ## 更新内容
+            请查看 [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)
+            （generate_release_notes: true 已启用，自动汇总 commits）
+
+            ## 部署
+            - Docker（真推启用后可拉取，当前为假推送仅本地构建验证，见 release.yml 注释与 docs/DEPLOY.md §5.2）:
+              `docker pull ghcr.io/${{ github.repository }}:${{ github.ref_name }}`
+              `docker pull ghcr.io/${{ github.repository }}:latest`（需真推 ghcr.io 后可用，启用：取消 release.yml 中 docker/login+metadata+build-push push:true 注释并加 permissions: packages:write）
+            - 静态文件: 下载本页面附件中的 dist.zip

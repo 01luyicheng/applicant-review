@@ -1,0 +1,9 @@
+{
+  "name": "Applicant Review",
+  "short_name": "Review",
+  "theme_color": "#111827",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": []
+}

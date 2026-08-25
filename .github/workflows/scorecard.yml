@@ -1,0 +1,46 @@
+name: Scorecard
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 7 * * 1' # 每周一 07:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: scorecard-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+jobs:
+  analysis:
+    name: Scorecard analysis
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      id-token: write
+      contents: read
+      actions: read
+    steps:
+      # pin: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.1.7
+        with:
+          persist-credentials: false
+      # pin: ossf/scorecard-action@v2.3.3
+      - uses: ossf/scorecard-action@v2.3.3
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          # publish_results 已废弃，OSSF 推荐通过 SARIF 上传
+          publish_results: false
+      # pin: github/codeql-action/upload-sarif@v3.28.0
+      - uses: github/codeql-action/upload-sarif@v3.28.0
+        with:
+          sarif_file: results.sarif
+      # pin: actions/upload-artifact@v4.4.3
+      - uses: actions/upload-artifact@v4.4.3
+        with:
+          name: SARIF file
+          path: results.sarif
+          retention-days: 5

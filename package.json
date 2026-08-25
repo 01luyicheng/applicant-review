@@ -1,0 +1,79 @@
+{
+  "name": "applicant-review",
+  "version": "1.0.0",
+  "description": "通用的活动报名审核工具 - 零配置上手，拖拽 Excel/CSV 即用",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && rm -f dist/example.csv",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx --max-warnings 0",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "review",
+    "applicant",
+    "hackathon",
+    "recruitment",
+    "evaluation",
+    "excel",
+    "csv",
+    "飞书",
+    "腾讯文档",
+    "mit",
+    "mit-license",
+    "open-source"
+  ],
+  "author": "applicant-review",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20",
+    "npm": ">=9"
+  },
+  "homepage": "https://github.com/YOUR_ORG/applicant-review#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_ORG/applicant-review.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_ORG/applicant-review/issues"
+  },
+  "_comment_rebrand": "TODO: 将 YOUR_ORG 替换为你的 GitHub 组织/用户名，执行 ./scripts/rebrand.sh YOUR_ORG 一键替换；YOUR_ORG 为历史品牌占位，已去硬编码；发布前执行 scripts/rebrand.sh 替换，不影响 MIT 许可效力（MIT 仅覆盖代码版权，不含商标，见 TRADEMARK.md）",
+  "_comment_license": "SPDX-License-Identifier: MIT; license 字段与 LICENSE/NOTICE/README 保持一致，商业友好；YOUR_ORG 占位不影响许可效力",
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "i18next": "^23.15.1",
+    "lucide-react": "^0.294.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "xlsx": "^0.18.5"
+  },
+  "_comment_xlsx": "已新增 exceljs 主路径，xlsx 保留 fallback，audit moderate 已关注：exceljs@^4.4.0 为 xlsx 主解析（workbook.xlsx.load + worksheet.getRow 动态 import），csv 仍走 xlsx/原生，xlsx@^0.18.5 保留为 exceljs 未装或加载失败时的回退；动态 import 不计入主包 manualChunks 已拆分 exceljs；npm audit 中 xlsx moderate（原型污染）已通过导入侧 sanitization/原型键过滤缓解，持续关注上游 0.20.3 发布",
+  "_comment_i18n": "i18n 已接入主链路：src/i18n.ts 基于 i18next+react-i18next（fallback zh, localStorage 持久），src/locales/{zh,en}.json 全量覆盖；FilterBar/FileUploader 已示范 t() 改造，App header 提供 中/EN 切换",
+  "_comment_zod": "zod 双轨已落地: 已执行 npm i zod@^3.23.8 -D（实际 ^3.25.76），src/config.ts 已接入 configSchema(z.object) 对 title/idField/nameField/statusField/listFields/statusValues 等核心字段校验，validateConfig 先走 zod safeParse 再回退手写 getLegacyValidationErrors，手写 150 行保留作回退与细粒度合并，去重后返回以免破测试；若网络失败则回退为 devDeps 占位 + 注释（当前已成功安装）",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^8.67.0",
+    "@typescript-eslint/parser": "^8.67.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^4.1.11",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.57.1",
+    "jsdom": "^29.1.1",
+    "msw": "^2.15.0",
+    "postcss": "^8.4.32",
+    "react-i18next": "^13.5.0",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^4.1.11",
+    "zod": "^3.25.76"
+  }
+}

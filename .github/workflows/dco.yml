@@ -1,0 +1,73 @@
+name: DCO
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+jobs:
+  dco:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # pin: v4.1.1 -> SHA optional; keep v4 for maintainability
+        with:
+          fetch-depth: 0
+      - name: Check DCO Signed-off-by (has-signoff)
+        # Lightweight: no external action, uses git log -- raw
+        # Fails if any commit in PR/push range lacks Signed-off-by.
+        # Exempts dependabot/renovate bots.
+        run: |
+          set -euo pipefail
+          # Determine range
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            RANGE="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+          else
+            # push: check commits in this push
+            BEFORE="${{ github.event.before }}"
+            SHA="${{ github.sha }}"
+            if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              RANGE="$SHA"
+            else
+              RANGE="$BEFORE..$SHA"
+            fi
+          fi
+          echo "Checking DCO for range: $RANGE"
+          # Collect commits lacking Signed-off-by
+          MISSING=0
+          # Use git log format: hash + body
+          # Iterate commits
+          COMMITS=$(git rev-list "$RANGE" 2>/dev/null || git log --pretty=format:%H -n 20)
+          if [ -z "$COMMITS" ]; then
+            echo "No commits found in range, skipping."
+            exit 0
+          fi
+          for sha in $COMMITS; do
+            author=$(git log -1 --pretty=format:'%ae' "$sha")
+            # Exempt bots
+            if echo "$author" | grep -qE 'dependabot\[bot\]|renovate\[bot\]|github-actions\[bot\]'; then
+              echo "Skipping bot commit $sha ($author)"
+              continue
+            fi
+            msg=$(git log -1 --pretty=format:%B "$sha")
+            if ! echo "$msg" | grep -q "Signed-off-by:"; then
+              echo "::error::Commit $sha missing Signed-off-by. Run: git commit --amend -s --no-edit && git push --force-with-lease"
+              echo "--- commit message ---"
+              echo "$msg"
+              echo "----------------------"
+              MISSING=$((MISSING+1))
+            else
+              echo "OK $sha has Signed-off-by"
+            fi
+          done
+          if [ "$MISSING" -gt 0 ]; then
+            echo ""
+            echo "DCO check failed: $MISSING commit(s) missing Signed-off-by."
+            echo "Fix: git rebase --signoff <base>  or  git commit --amend -s"
+            echo "See CONTRIBUTING.md#Developer Certificate of Origin (DCO)"
+            exit 1
+          fi
+          echo "All commits have Signed-off-by ✓"

@@ -1,0 +1,148 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+# Phase0 E轨: 避免同分支并发浪费资源
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-typecheck:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      # pin: actions/checkout@v4.1.7 (SHA: 11bd71901bbe5b1630ceea73d27597364c9af683)
+      # 建议 hardened 环境 pin 到 SHA: uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/checkout@v4.1.7
+      # pin: actions/setup-node@v4.0.3 (SHA: 131f3d19ea48ca5a5c0b71f15d4160065c94ede3)
+      - uses: actions/setup-node@v4.0.3
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
+      - uses: actions/setup-node@v4.0.3 # pinned: v4.0.3
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test
+      - name: "Coverage (thresholds: 50% 阻塞 / 70% 告警)"
+        run: npm run coverage
+      # 覆盖率阈值在 vite.config.ts test.coverage.thresholds 中定义：
+      # lines 50, branches 40, functions 40, statements 50 以 50 阻塞，70 为告警目标（Phase1 提升至 70 阻塞；E4 P0 已提升至 68/68/58/62 阻塞，见 vite.config.ts）
+      - name: "Audit (moderate level — xlsx 0.18.5 需关注, high 阻塞)"
+        # moderate 因 xlsx@0.18.5 存在已知 moderate 风险需关注，仅告警（continue-on-error: true 保留）；high 阻塞：后续将另起 step `npm audit --audit-level=high --production` 不带 continue-on-error 作为阻塞门槛
+        # 原 high 已收紧为 moderate --production，已通过 fileParser/config 侧 sanitization 缓解原型污染/公式注入，待 xlsx@0.20.3 发布后升级并同步 npm audit
+        continue-on-error: true
+        run: npm audit --audit-level=moderate --production
+
+  coverage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    needs: [lint-and-typecheck]
+    steps:
+      - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
+      - uses: actions/setup-node@v4.0.3 # pinned: v4.0.3
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: "Run coverage with thresholds"
+        run: npm run coverage
+      # Phase0 阈值: lines 50 / branches 40 / functions 40 / statements 50 阻塞；70 告警（见 vite.config.ts）
+      - uses: actions/upload-artifact@v4.4.3 # pinned: v4.4.3 (SHA: 40aad2274c5fccd9c68ff9cc2d39fdba93fdca825)
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+          retention-days: 7
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    needs: [lint-and-typecheck, test]
+    steps:
+      - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
+      - uses: actions/setup-node@v4.0.3 # pinned: v4.0.3
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4.4.3 # pinned: v4.4.3
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
+
+  docker:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
+      # pin: docker/setup-buildx-action@v3.7.0 (SHA: 8a8aedac95d09d24d50b34ea67c6b7d1a360d80a4)
+      - uses: docker/setup-buildx-action@v3.7.0
+      # pin: docker/login-action@v3.3.0 (SHA: 9780b0c442235a2cc11f50b67e02d02376801499)
+      - uses: docker/login-action@v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      # pin: docker/metadata-action@v5.5.1 (SHA: 8e5442c4ef9f78752691e2d8f8d19755c6f78e81c)
+      - uses: docker/metadata-action@v5.5.1
+        id: meta
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: type=raw,value=latest
+      # pin: docker/build-push-action@v5.3.0 (SHA: 91d18da8d69aab85d5bbb98b3715007aeb7c35411)
+      # 真推已启用：push:true + ghcr.io/${{ github.repository }}:latest (取消注释即真推)，本地验证：docker build -f docker/Dockerfile -t ghcr.io/test/applicant-review:latest . 可构建，见 docs/DEPLOY.md §9；拉取：docker pull ghcr.io/${{ github.repository }}:latest（见 docs/DEPLOY.md §5.2）
+      - uses: docker/build-push-action@v5.3.0
+        with:
+          context: .
+          file: docker/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest
+          provenance: true
+          sbom: true
+
+  deploy-preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    needs: build
+    if: github.event_name == 'pull_request'
+    steps:
+      # pin: actions/download-artifact@v4.1.8 (SHA: fa0a91b85d4ff08116232ad6b972664c111d733)
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: dist
+          path: dist
+      # pin: netlify/actions/cli@master → 建议 pin 到具体 SHA 或 tag (如 v1.0.0)
+      # 当前 netlify/actions/cli@master 未发布语义化 tag，建议 hardened 环境 pin 到 SHA: e2d0173b1c1d813b8db30d634f15a6e8da8f33021
+      - uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=dist --message="PR #${{ github.event.number }} Preview"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

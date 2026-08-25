@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+
+# Misc
+*.local
+
+# Sensitive data - prevent real PII from being committed
+*.csv
+*.xlsx
+!public/example.csv
+
+# PII guard: 上级目录真实报名表 Rebuild-Z*.csv 风险防护（已存在于 /home/luyicheng/Documents/projects/Rebuild-Z/Rebuild-Z黑客松大赛S2报名表.csv，含真实 PII，不可提交）
+# 防护说明：本仓库已通过 *.csv 全局忽略；此处额外注释 ../Rebuild-Z*.csv 路径以提醒：切勿将上级真实报名表移入或软链入本仓库；若需本地联调请用 public/example.csv 脱敏样例
+# ../Rebuild-Z*.csv
