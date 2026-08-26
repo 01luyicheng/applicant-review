@@ -64,12 +64,11 @@ export default defineConfig({
     format: 'es',
   },
   build: {
-    chunkSizeWarningLimit: 900,
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
         manualChunks: {
           xlsx: ['xlsx'],
-          exceljs: ['exceljs'],
           react: ['react', 'react-dom'],
         },
       },

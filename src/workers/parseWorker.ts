@@ -1,7 +1,6 @@
 /**
  * Phase1.5 Worker 解析：卸载主线程 XLSX 解析，避免 5k+ 行阻塞 UI
  * 接收 { buffer: ArrayBuffer, fileName: string, config: ViewConfig }
- * 优先 exceljs（workbook.xlsx.load + worksheet.getRow 动态 import），xlsx 为 fallback
  * 返回 { type:'success', applicants, headers } 或 { type:'error', error }
  */
 /// <reference lib="webworker" />
@@ -27,140 +26,11 @@ type WorkerError = {
 
 type WorkerResponse = WorkerSuccess | WorkerError;
 
-// Vite worker 类型：self 为 DedicatedWorkerGlobalScope
 const ctx = self as unknown as DedicatedWorkerGlobalScope;
-
-async function tryParseWithExcelJS(
-  buffer: ArrayBuffer,
-  fileName: string,
-  config: ViewConfig
-): Promise<{ applicants: Applicant[]; headers: string[] } | null> {
-  if (fileName.toLowerCase().endsWith('.csv')) return null;
-  try {
-    const mod: unknown = await import('exceljs');
-    const ExcelJS = (mod as { default?: unknown }).default ?? mod;
-    const WorkbookCtor = (ExcelJS as { Workbook?: new () => { xlsx: { load: (b: ArrayBuffer) => Promise<void> }; worksheets: unknown[]; getWorksheet?: (i: number) => unknown } }).Workbook;
-    if (!WorkbookCtor) return null;
-    const wb = new WorkbookCtor() as unknown as {
-      xlsx: { load: (b: ArrayBuffer) => Promise<void> };
-      worksheets: unknown[];
-      getWorksheet?: (i: number) => unknown;
-      columnCount?: number;
-      rowCount?: number;
-    };
-    await wb.xlsx.load(buffer);
-    const wsRaw: unknown =
-      (wb.worksheets && (wb.worksheets as unknown[])[0]) ??
-      (typeof wb.getWorksheet === 'function' ? wb.getWorksheet(1) : null);
-    if (!wsRaw) return { applicants: [], headers: [] };
-    const ws = wsRaw as {
-      getRow: (n: number) => { getCell: (c: number) => { value: unknown; text: string }; values?: unknown[]; cellCount: number };
-      rowCount: number;
-      columnCount: number;
-    };
-    const MAX_HEADER_LEN = 128;
-    const PROTO_KEY_RE = /^(__proto__|constructor|prototype)$/;
-    const headerRow = ws.getRow(1);
-    const valuesLen = Array.isArray(headerRow.values) ? (headerRow.values as unknown[]).length - 1 : 0;
-    const colCount = Math.max(ws.columnCount || 0, headerRow.cellCount || 0, valuesLen, 0);
-    if (colCount === 0) return { applicants: [], headers: [] };
-    const headers: string[] = [];
-    for (let c = 1; c <= colCount; c++) {
-      const cell = headerRow.getCell(c);
-      const v = cell.value as unknown;
-      let raw: string;
-      if (v && typeof v === 'object' && (v as { formula?: unknown }).formula) {
-        raw = '=' + String((v as { formula: unknown }).formula);
-      } else if (cell.text !== '' && cell.text != null) {
-        raw = String(cell.text);
-      } else if (v != null) {
-        if (typeof v === 'object') {
-          const ov = v as { text?: unknown; richText?: { text: string }[] };
-          if (ov.richText) raw = ov.richText.map((t) => t.text).join('');
-          else if (ov.text) raw = String(ov.text);
-          else raw = String(cell.text ?? '');
-        } else {
-          raw = String(v);
-        }
-      } else {
-        raw = '';
-      }
-      headers.push(raw.trim().slice(0, MAX_HEADER_LEN));
-    }
-    const seen = new Set<string>();
-    const dupHeaders = headers.filter((h) => {
-      if (seen.has(h)) return true;
-      seen.add(h);
-      return false;
-    });
-    if (dupHeaders.length > 0) throw new Error(`表头重复: ${dupHeaders.join(', ')}`);
-    if (ws.rowCount < 2) return { applicants: [], headers };
-    const sanitizeImportCell = (cell: string): string => {
-      const s = String(cell);
-      if (/^[=@]/.test(s)) return "'" + s;
-      return s;
-    };
-    const applicants: Applicant[] = [];
-    for (let r = 2; r <= ws.rowCount; r++) {
-      const row = ws.getRow(r);
-      const raw: Record<string, string> = Object.create(null);
-      let isEmptyRow = true;
-      for (let c = 1; c <= headers.length; c++) {
-        const h = headers[c - 1];
-        if (PROTO_KEY_RE.test(h)) continue;
-        const cell = row.getCell(c);
-        const v = cell.value as unknown;
-        let str: string;
-        if (v && typeof v === 'object' && (v as { formula?: unknown }).formula) {
-          str = '=' + String((v as { formula: unknown }).formula);
-        } else if (v && typeof v === 'object' && (v as { richText?: unknown }).richText) {
-          str = (v as { richText: { text: string }[] }).richText.map((t) => t.text).join('');
-        } else if (v && typeof v === 'object' && (v as { text?: unknown }).text && (v as { hyperlink?: unknown }).hyperlink) {
-          str = String((v as { text: unknown }).text);
-        } else if (cell.text !== '' && cell.text != null) {
-          str = String(cell.text);
-        } else if (v != null) {
-          str = String(v);
-        } else {
-          str = '';
-        }
-        str = str.trim();
-        if (str !== '') isEmptyRow = false;
-        raw[h] = sanitizeImportCell(str);
-      }
-      if (isEmptyRow) {
-        const allEmpty = headers.every((h) => !PROTO_KEY_RE.test(h) && (raw[h] === '' || raw[h] === undefined));
-        if (allEmpty) continue;
-      }
-      applicants.push({ id: String(raw[config.idField] || `${fileName}-${r - 2}-${Date.now()}`), raw });
-    }
-    return { applicants, headers };
-  } catch (e) {
-    // 若为表头重复等业务错误，应抛出让外层转为 error 响应，而不是静默回退；仅在 exceljs 未装/加载失败时回退
-    if (e instanceof Error && /表头重复/.test(e.message)) throw e;
-    return null;
-  }
-}
 
 ctx.onmessage = async (e: MessageEvent<WorkerRequest>) => {
   const { buffer, fileName, config } = e.data;
   try {
-    // 优先 exceljs（仅 xlsx）
-    if (!fileName.toLowerCase().endsWith('.csv')) {
-      try {
-        const excelRes = await tryParseWithExcelJS(buffer, fileName, config);
-        if (excelRes !== null) {
-          const res: WorkerResponse = { type: 'success', applicants: excelRes.applicants, headers: excelRes.headers };
-          ctx.postMessage(res);
-          return;
-        }
-      } catch (err) {
-        // 表头重复等业务异常直接抛给外层 error
-        if (err instanceof Error && /表头重复/.test(err.message)) throw err;
-        // 其他 exceljs 异常回退 xlsx
-      }
-    }
-
     const XLSX: typeof XLSXType = await import('xlsx');
     const data = new Uint8Array(buffer);
     let workbook: XLSXType.WorkBook;
@@ -201,7 +71,6 @@ ctx.onmessage = async (e: MessageEvent<WorkerRequest>) => {
     }
     const rows = json.slice(1) as unknown[][];
 
-    // 仅对 = 和 @ 开头清洗，+ - | % 延后到 exportToCSV
     const sanitizeImportCell = (cell: string): string => {
       const s = String(cell);
       if (/^[=@]/.test(s)) return "'" + s;
