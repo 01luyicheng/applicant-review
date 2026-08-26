@@ -47,7 +47,7 @@
     "i18next": "^23.15.1",
     "lucide-react": "^0.294.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^19.2.8",
     "xlsx": "^0.18.5"
   },
   "_comment_xlsx": "xlsx@^0.18.5 单一解析：已移除 exceljs（938k）以降低安装成本；xlsx 高危（ReDoS/原型污染）已通过 Object.create(null)+PROTO_KEY_RE+sanitize 仅洗 =/@ 缓解，供应链风险在 Local-First 浏览器本地场景可控；待上游 0.20.2+ 发布再升级",
@@ -57,7 +57,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
+    "@types/react-dom": "^19.2.4",
     "@typescript-eslint/eslint-plugin": "^8.67.0",
     "@typescript-eslint/parser": "^8.67.0",
     "@vitejs/plugin-react": "^4.2.1",
