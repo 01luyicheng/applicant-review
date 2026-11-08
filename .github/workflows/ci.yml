@@ -20,8 +20,8 @@ jobs:
       # pin: actions/checkout@v4.1.7 (SHA: 11bd71901bbe5b1630ceea73d27597364c9af683)
       # 建议 hardened 环境 pin 到 SHA: uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/checkout@v4.1.7
-      # pin: actions/setup-node@v4.0.3 (SHA: 131f3d19ea48ca5a5c0b71f15d4160065c94ede3)
-      - uses: actions/setup-node@v4.0.3
+      # pin: actions/setup-node@v7.0.0 (SHA: 131f3d19ea48ca5a5c0b71f15d4160065c94ede3)
+      - uses: actions/setup-node@v7.0.0
         with:
           node-version: '20'
           cache: 'npm'
@@ -35,7 +35,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
-      - uses: actions/setup-node@v4.0.3 # pinned: v4.0.3
+      - uses: actions/setup-node@v7.0.0 # pinned: v4.0.3
         with:
           node-version: '20'
           cache: 'npm'
@@ -58,7 +58,7 @@ jobs:
     needs: [lint-and-typecheck]
     steps:
       - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
-      - uses: actions/setup-node@v4.0.3 # pinned: v4.0.3
+      - uses: actions/setup-node@v7.0.0 # pinned: v4.0.3
         with:
           node-version: '20'
           cache: 'npm'
@@ -80,7 +80,7 @@ jobs:
     needs: [lint-and-typecheck, test]
     steps:
       - uses: actions/checkout@v4.1.7 # pinned: v4.1.7
-      - uses: actions/setup-node@v4.0.3 # pinned: v4.0.3
+      - uses: actions/setup-node@v7.0.0 # pinned: v4.0.3
         with:
           node-version: '20'
           cache: 'npm'
