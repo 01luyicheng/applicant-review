@@ -39,8 +39,8 @@ jobs:
         id: meta
         with:
           images: ghcr.io/${{ github.repository }}
-      # pin: docker/build-push-action@v5.3.0 (SHA: 91d18da8d69aab85d5bbb98b3715007aeb7c35411)
-      - uses: docker/build-push-action@v5.3.0
+      # pin: docker/build-push-action@v7.3.0 (SHA: 91d18da8d69aab85d5bbb98b3715007aeb7c35411)
+      - uses: docker/build-push-action@v7.3.0
         with:
           context: .
           file: docker/Dockerfile
