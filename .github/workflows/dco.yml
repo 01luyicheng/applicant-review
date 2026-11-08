@@ -19,7 +19,7 @@ jobs:
       - name: Check DCO Signed-off-by (has-signoff)
         # Lightweight: no external action, uses git log -- raw
         # Fails if any commit in PR/push range lacks Signed-off-by.
-        # Exempts dependabot/renovate bots.
+        # Exempts dependabot/renovate/github-actions bots and GitHub-generated merge commits.
         run: |
           set -euo pipefail
           # Determine range
@@ -50,6 +50,13 @@ jobs:
             # Exempt bots
             if echo "$author" | grep -qE 'dependabot\[bot\]|renovate\[bot\]|github-actions\[bot\]'; then
               echo "Skipping bot commit $sha ($author)"
+              continue
+            fi
+            subject=$(git log -1 --pretty=format:%s "$sha")
+            # Exempt merge commits ("Merge pull request #N ..." / "Merge branch ...")
+            # Parents are still checked independently in this range.
+            if echo "$subject" | grep -qE '^Merge '; then
+              echo "Skipping merge commit $sha ($subject)"
               continue
             fi
             msg=$(git log -1 --pretty=format:%B "$sha")
