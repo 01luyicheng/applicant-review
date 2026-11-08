@@ -23,8 +23,8 @@ jobs:
       contents: read
       actions: read
     steps:
-      # pin: actions/checkout@v4.1.7
-      - uses: actions/checkout@v4.1.7
+      # pin: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       # pin: ossf/scorecard-action@v2.3.3
